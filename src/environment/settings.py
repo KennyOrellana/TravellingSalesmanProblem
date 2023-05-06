@@ -1,0 +1,6 @@
+class Settings:
+    SCREEN_WIDTH = 800
+    SCREEN_HEIGHT = 600
+    NODE_RADIUS = 10
+    NODE_COLOR = (255, 255, 255)
+    BACKGROUND_COLOR = (0, 0, 0)

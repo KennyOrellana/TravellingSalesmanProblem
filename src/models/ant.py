@@ -17,5 +17,4 @@ class Ant(Node):
         ant_color.a = Settings.ANT_ALPHA
         pygame.draw.circle(screen, ant_color, (self.x, self.y), Settings.NODE_RADIUS)
 
-    def draw_line_to_node(self, screen, node, line_color=Settings.LINE_COLOR, line_thickness=Settings.LINE_THICKNESS):
-        pygame.draw.line(screen, line_color, (self.x, self.y), (node.x, node.y), line_thickness)
+

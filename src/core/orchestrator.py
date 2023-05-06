@@ -20,7 +20,7 @@ class Orchestrator:
             simulation.pause()
 
     def tick(self):
-        print("tick orchestrator")
+        self.canvas.clear()
         # if self.playing:
         for simulation in self.simulations:
             simulation.tick()

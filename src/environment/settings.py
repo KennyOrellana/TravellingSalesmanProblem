@@ -4,7 +4,7 @@ import pygame
 class Settings:
     LINE_THICKNESS = 5
     FPS = 30
-    DELAY = 10_000 // FPS
+    DELAY = 5_000 // FPS
     PADDING = 50
     NODE_RADIUS = 10
     NODE_COLOR = (0xF45A47)  # HEX color for white
@@ -14,4 +14,4 @@ class Settings:
     NEXT_NODE_THICKNESS = 7
     ANT_COLOR = pygame.Color('#6C559A')
     ANT_ALPHA = int(255 * 0.66)
-    DESIRABILITY_POWER = 5
+    DESIRABILITY_POWER = 2.3

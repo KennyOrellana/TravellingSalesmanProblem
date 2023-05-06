@@ -39,7 +39,6 @@ def main():
         # Limit the game loop to the desired FPS
         # clock.tick(Settings.FPS)
 
-        print("tick main")
         orchestrator.tick()
         pygame.display.flip()
 

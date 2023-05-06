@@ -1,3 +1,6 @@
+from src.environment.settings import Settings
+
+
 class Manager:
     def __init__(self, canvas, environment):
         self.canvas = canvas
@@ -20,3 +23,7 @@ class Manager:
         for ant in self.ants:
             for node in self.environment.nodes:
                 ant.draw_line_to_node(self.canvas.screen, node)
+
+    def draw_next_node(self, next_node_index):
+        self.ants[0].draw_line_to_node(self.canvas.screen, self.environment.nodes[next_node_index],
+                                       Settings.NEXT_NODE_COLOR, Settings.NEXT_NODE_THICKNESS)

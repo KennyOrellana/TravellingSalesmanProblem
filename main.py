@@ -53,6 +53,8 @@ def main():
                     pause = not pause
                     started = True
 
+        pygame.time.delay(Settings.DELAY)
+
 
 if __name__ == "__main__":
     main()

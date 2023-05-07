@@ -1,4 +1,5 @@
 from src.algorithms.ant import Ant
+from src.algorithms.ant_demo import AntDemo
 from src.environment.settings import Settings
 from src.ui.manager import Manager
 
@@ -17,14 +18,17 @@ class AntColony(Manager):
 
     def followed_path(self, i, j):
         self.matrix[i][j] += 1
-        self.matrix[j][i] += 1
 
     def get_pheromone_value(self, node1, node2):
         return self.matrix[node1][node2]
 
     def tick(self):
-        for ant in self.ants:
-            ant.tick()
+        print("Ants: ", len(self.ants))
+        for index, ant in reversed(list(enumerate(self.ants))):
+            if ant.total_distance > 0:
+                self.ants.pop(index)
+            else:
+                ant.tick()
 
         self.dissipate_pheromone()
 
@@ -32,13 +36,15 @@ class AntColony(Manager):
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 self.matrix[i][j] *= (1 - evaporation_rate)
-                self.matrix[j][i] = self.matrix[i][j]
+                self.matrix[j][i] *= (1 - evaporation_rate)
                 if self.matrix[i][j] < 1:
                     self.matrix[i][j] = 1
+                if self.matrix[j][i] < 1:
                     self.matrix[j][i] = 1
 
     def create_ants(self, n):
         return [Ant(self) for _ in range(n)]  # Create n instances of Ant
+        # return [AntDemo(self) for _ in range(n)]  # Create n instances of Ant
 
     def add_iteration(self):
         self.total_ants += 1

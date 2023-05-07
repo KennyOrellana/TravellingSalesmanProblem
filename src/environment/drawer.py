@@ -26,7 +26,7 @@ class Drawer:
             self.environment.nodes[nodes[-1]].draw_line_to_node(
                 self.canvas.screen,
                 self.environment.nodes[nodes[0]],
-                Settings.NODE_COLOR, Settings.LINE_THICKNESS
+                color, Settings.LINE_THICKNESS
             )
 
     def draw_summary(self, total_ants):
@@ -44,4 +44,3 @@ class Drawer:
 
         self.canvas.screen.blit(total_ants_surface, (10, 10))
         self.canvas.screen.blit(shortest_distance_surface, (10, 50))
-

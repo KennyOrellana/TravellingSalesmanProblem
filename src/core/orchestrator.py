@@ -14,12 +14,12 @@ class Orchestrator:
 
     def tick(self):
         self.canvas.clear()
+        self.drawer.draw_nodes()
         self.manager.tick()
 
         self.drawer.draw_summary(self.manager.total_ants)
 
         if self.environment.shortest_path_size is not None:
-            self.drawer.draw_nodes()
             self.drawer.draw_path(self.environment.shortest_path, Settings.TEXT_COLOR)
 
     def add_iteration(self):

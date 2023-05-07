@@ -9,10 +9,6 @@ class Manager:
         self.environment = environment
         self.best_ant = None
 
-    def draw_ants(self, ant):
-        # for ant in self.ants:
-        ant.draw(self.canvas.screen, Settings.CURRENT_NODE_COLOR)
-
     def ant_finished(self, ant):
         if self.environment.shortest_path_size is None or ant.total_distance < self.environment.shortest_path_size:
             self.environment.update_shortest_path(ant.visited_nodes, ant.total_distance)
@@ -23,3 +19,6 @@ class Manager:
 
     def add_iteration(self):
         pass
+
+    def get_node_at(self, index):
+        return self.environment.nodes[index]

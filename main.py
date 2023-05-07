@@ -15,7 +15,6 @@ def main():
 
     pause = False
     run = True
-    counter = 0
 
     # Create a clock object and set the desired FPS
     clock = pygame.time.Clock()
@@ -26,10 +25,7 @@ def main():
 
         orchestrator.tick()
         if not pause:
-            counter += 1
-            if counter % 2 == 0:
-                # if counter % 2 == 0 and Settings.DELAY == 0:
-                orchestrator.add_iteration()
+            orchestrator.add_iteration()
 
             # pygame.time.delay(Settings.DELAY)
 
@@ -43,6 +39,7 @@ def main():
                     run = False
                 if event.key == pygame.K_SPACE:
                     pause = not pause
+                    # orchestrator.add_iteration()
 
 
 if __name__ == "__main__":

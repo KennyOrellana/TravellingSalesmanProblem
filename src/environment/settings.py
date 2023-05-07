@@ -6,7 +6,7 @@ class Settings:
     INITIAL_ANTS = 50
     FPS = 120
     # DELAY = 0  # 10_000 // FPS
-    DELAY = 100_000 // FPS
+    DELAY = 10_000 // FPS
     PADDING = 50
 
     NODE_RADIUS = 10

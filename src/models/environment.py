@@ -6,7 +6,7 @@ from src.ui.canvas import Canvas
 
 
 class Environment:
-    def __init__(self, nodes=None, num_nodes=10):
+    def __init__(self, nodes=None, num_nodes=Settings.NUM_NODES):
         if nodes is None:
             (width, height) = Canvas.get_screen_size()
             self.nodes = [

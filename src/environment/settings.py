@@ -2,12 +2,14 @@ import pygame
 
 
 class Settings:
-    FPS = 30
-    DELAY = 10_000 // FPS
+    NUM_NODES = 50
+    FPS = 120
+    DELAY = 0#10_000 // FPS
     PADDING = 50
 
     NODE_RADIUS = 10
-    LINE_THICKNESS = NODE_RADIUS // 2
+    LINE_THICKNESS = 2 #NODE_RADIUS // 2
+    NODE_OPTIONS_THICKNESS = NUM_NODES // 2
 
     BACKGROUND_COLOR = pygame.Color('#F7F9FC')
 

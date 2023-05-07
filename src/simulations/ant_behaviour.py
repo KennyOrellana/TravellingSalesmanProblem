@@ -22,22 +22,22 @@ class AntBehaviour(Simulation):
         self.manager.draw_nodes()
         initial_index = random.randint(0, len(self.manager.environment.nodes) - 1)
         self.ant = Ant.from_node(self.manager.environment.nodes[initial_index])
-        self.manager.add_ant(self.ant)
+        # self.manager.add_ant(self.ant)
         self.visited_nodes.append(initial_index)
 
     def tick(self):
         self.manager.draw_nodes()
         self.draw_current_path()
-        self.manager.draw_ants()
+        self.manager.draw_ants(self.ant)
 
         self.iteration += 1
         self.iteration %= self.STEPS
 
-        if self.iteration == 1:
-            self.draw_option_lines()
-        elif self.iteration == 2:
-            self.draw_option_lines()
-            self.move_to_next_node()
+        # if self.iteration == 1:
+        # self.draw_option_lines()
+        # elif self.iteration == 2:
+        # self.draw_option_lines()
+        self.move_to_next_node()
         # else if self.iteration == 3:
         # animate transition
 
@@ -77,9 +77,8 @@ class AntBehaviour(Simulation):
         if len(self.visited_nodes) != len(self.manager.environment.nodes):
             next_node_index = self.find_next_node()
             self.visited_nodes.append(next_node_index)
-            self.manager.draw_next_node(next_node_index)
-            self.manager.ants[0] = Ant.from_node(self.manager.environment.nodes[next_node_index])
-            # self.ant = Ant.from_node(self.manager.environment.nodes[next_node_index])
+            self.manager.draw_next_node(self.ant, next_node_index)
+            self.ant = Ant.from_node(self.manager.environment.nodes[next_node_index])
             # self.manager.ants[0] = self.ant
 
     def find_next_node(self):
@@ -95,6 +94,8 @@ class AntBehaviour(Simulation):
         total_desirability = sum(desirabilities)
         normalized_desirabilities = [desirability / total_desirability for desirability in desirabilities]
 
+        self.draw_option_nodes(available_nodes, normalized_desirabilities)
+
         # Select the next node based on randomness of the desirabilities
         next_node_index = random.choices(available_nodes, normalized_desirabilities)[0]
 
@@ -104,3 +105,14 @@ class AntBehaviour(Simulation):
         distance = self.ant.distance_to(node)
         desirability = math.pow(1 / distance, Settings.DESIRABILITY_POWER)
         return desirability
+
+    def draw_option_nodes(self, available_nodes, normalized_desirabilities):
+        for index, node in enumerate(self.manager.environment.nodes):
+            if index in available_nodes:
+                position = available_nodes.index(index)
+                self.ant.draw_line_to_node(
+                    self.manager.canvas.screen,
+                    node,
+                    line_thickness=int(
+                        round(Settings.NODE_OPTIONS_THICKNESS * normalized_desirabilities[position])),
+                )

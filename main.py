@@ -9,6 +9,47 @@ from src.simulations.ant_behaviour import AntBehaviour
 def create_simulations():
     return [
         AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
+        AntBehaviour(),  # add more ants
     ]
 
 

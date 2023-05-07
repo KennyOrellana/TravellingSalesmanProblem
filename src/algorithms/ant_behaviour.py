@@ -9,16 +9,15 @@ from src.ui.manager import Manager
 
 # Probably must be renamed
 class AntBehaviour(Simulation):
-    STEPS = 3
-
     def __init__(self):
         self.manager = None
         self.iteration = -1
         self.ant = None
         self.visited_nodes = []
+        self.total_distance = 0
 
-    def start(self, canvas, environment):
-        self.manager = Manager(canvas, environment)
+    def start(self, canvas, environment, manager):
+        self.manager = manager
         self.manager.draw_nodes()
         initial_index = random.randint(0, len(self.manager.environment.nodes) - 1)
         self.ant = Ant.from_node(self.manager.environment.nodes[initial_index])
@@ -26,37 +25,30 @@ class AntBehaviour(Simulation):
         self.visited_nodes.append(initial_index)
 
     def tick(self):
-        self.manager.draw_nodes()
-        self.draw_current_path()
-        self.manager.draw_ants(self.ant)
+        if self.total_distance == 0:  # Only draw when haven't finished
+            self.manager.draw_nodes()
+            self.draw_current_path()
+            self.manager.draw_ants(self.ant)
 
-        self.iteration += 1
-        self.iteration %= self.STEPS
+            self.move_to_next_node()
 
-        # if self.iteration == 1:
-        # self.draw_option_lines()
-        # elif self.iteration == 2:
-        # self.draw_option_lines()
-        self.move_to_next_node()
-        # else if self.iteration == 3:
-        # animate transition
+            if self.total_distance > 0:
+                self.manager.ant_finished(self)
 
-    # when ends change the ant color
     # Use diferent color for each ant
 
-    # self.manager.tick()
-
-    def draw_current_path(self):
+    def draw_current_path(self, color=Settings.NODE_COLOR):
 
         if len(self.visited_nodes) > 1:
             for i in range(len(self.visited_nodes) - 1):
                 self.manager.environment.nodes[self.visited_nodes[i]].draw_line_to_node(
                     self.manager.canvas.screen,
                     self.manager.environment.nodes[self.visited_nodes[i + 1]],
-                    Settings.NODE_COLOR, Settings.LINE_THICKNESS
+                    color, Settings.LINE_THICKNESS
                 )
 
         if len(self.visited_nodes) == len(self.manager.environment.nodes):
+            self.total_distance = self.polygon_distance()
             self.manager.environment.nodes[self.visited_nodes[-1]].draw_line_to_node(
                 self.manager.canvas.screen,
                 self.manager.environment.nodes[self.visited_nodes[0]],
@@ -76,6 +68,7 @@ class AntBehaviour(Simulation):
     def move_to_next_node(self):
         if len(self.visited_nodes) != len(self.manager.environment.nodes):
             next_node_index = self.find_next_node()
+            self.manager.followed_path(self.visited_nodes[-1], next_node_index)
             self.visited_nodes.append(next_node_index)
             self.manager.draw_next_node(self.ant, next_node_index)
             self.ant = Ant.from_node(self.manager.environment.nodes[next_node_index])
@@ -88,7 +81,7 @@ class AntBehaviour(Simulation):
         for index, node in enumerate(self.manager.environment.nodes):
             if index not in self.visited_nodes:
                 available_nodes.append(index)
-                desirabilities.append(self.desirability(node))
+                desirabilities.append(self.desirability(index, node))
 
         # Normalize desirabilities to sum to 1
         total_desirability = sum(desirabilities)
@@ -101,9 +94,11 @@ class AntBehaviour(Simulation):
 
         return next_node_index
 
-    def desirability(self, node):
+    def desirability(self, index, node):
         distance = self.ant.distance_to(node)
-        desirability = math.pow(1 / distance, Settings.DESIRABILITY_POWER)
+        pheromone = self.manager.get_pheromone_value(self.visited_nodes[-1], index)
+        desirability = math.pow(1 / distance, Settings.DESIRABILITY_POWER) * math.pow(pheromone,
+                                                                                      Settings.PHEROMONE_POWER)
         return desirability
 
     def draw_option_nodes(self, available_nodes, normalized_desirabilities):
@@ -116,3 +111,12 @@ class AntBehaviour(Simulation):
                     line_thickness=int(
                         round(Settings.NODE_OPTIONS_THICKNESS * normalized_desirabilities[position])),
                 )
+
+    def polygon_distance(self) -> float:
+        total_distance = 0
+        for i in range(Settings.NUM_NODES):
+            current_node = self.manager.environment.nodes[self.visited_nodes[i]]
+            next_node = self.manager.environment.nodes[
+                self.visited_nodes[(i + 1) % Settings.NUM_NODES]]  # Wraps around to the first node after the last node
+            total_distance += current_node.distance_to(next_node)
+        return total_distance

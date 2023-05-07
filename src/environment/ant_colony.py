@@ -1,4 +1,4 @@
-from src.algorithms.ant_behaviour import Ant
+from src.algorithms.ant import Ant
 from src.environment.settings import Settings
 from src.ui.manager import Manager
 
@@ -8,6 +8,7 @@ class AntColony(Manager):
         super().__init__(canvas, environment)
         self.matrix = AntColony.create_pheromone_matrix(Settings.NUM_NODES)
         self.ants = self.create_ants(Settings.INITIAL_ANTS)  # Create n instances of Ant
+        self.total_ants = len(self.ants)
 
     @staticmethod
     def create_pheromone_matrix(n, initial_value=1.0):
@@ -25,9 +26,7 @@ class AntColony(Manager):
         for ant in self.ants:
             ant.tick()
 
-        super().tick()
         self.dissipate_pheromone()
-        self.draw_summary(len(self.ants))
 
     def dissipate_pheromone(self, evaporation_rate=0.5):
         for i in range(len(self.matrix)):
@@ -39,7 +38,8 @@ class AntColony(Manager):
                     self.matrix[j][i] = 1
 
     def create_ants(self, n):
-        return [Ant(self.canvas, self.environment, self) for _ in range(n)]  # Create n instances of Ant
+        return [Ant(self) for _ in range(n)]  # Create n instances of Ant
 
     def add_iteration(self):
-        self.ants.append(Ant(self.canvas, self.environment, self))
+        self.total_ants += 1
+        self.ants.extend(self.create_ants(1))

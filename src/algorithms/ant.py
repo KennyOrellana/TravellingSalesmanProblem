@@ -1,40 +1,29 @@
-import copy
 import math
 import random
 
 from src.environment.settings import Settings
-from src.models.simulation import Simulation
+from src.models.node import Node
 
 
-# Probably must be renamed
-class Ant(Simulation):
-    def __init__(self, canvas, environment, manager):
+# Use diferent color for each ant
+class Ant(Node):
+    def __init__(self, manager):
+        initial_index = random.randint(0, manager.environment.total_nodes - 1)
+        initial_node = manager.environment.nodes[initial_index]
+        super().__init__(initial_node.x, initial_node.y)
         self.manager = manager
-        self.manager.draw_nodes()
-        self.iteration = -1
-        self.ant = None
-        self.visited_nodes = []
+        self.visited_nodes = [initial_index]
         self.total_distance = 0
-        self.start()
-
-    def start(self):
-        initial_index = random.randint(0, len(self.manager.environment.nodes) - 1)
-        self.ant = copy.deepcopy(self.manager.environment.nodes[initial_index])
-        # self.manager.add_ant(self.ant)
-        self.visited_nodes.append(initial_index)
 
     def tick(self):
         if self.total_distance == 0:  # Only draw when haven't finished
-            self.manager.draw_nodes()
             self.draw_current_path()
-            self.manager.draw_ants(self.ant)
+            self.manager.draw_ants(self)
 
             self.move_to_next_node()
 
             if self.total_distance > 0:
                 self.manager.ant_finished(self)
-
-    # Use diferent color for each ant
 
     def draw_current_path(self, color=Settings.NODE_COLOR):
 
@@ -69,9 +58,10 @@ class Ant(Simulation):
             next_node_index = self.find_next_node()
             self.manager.followed_path(self.visited_nodes[-1], next_node_index)
             self.visited_nodes.append(next_node_index)
-            self.manager.draw_next_node(self.ant, next_node_index)
-            self.ant = copy.deepcopy(self.manager.environment.nodes[next_node_index])
-            # self.manager.ants[0] = self.ant
+            self.manager.draw_next_node(self, next_node_index)
+            next_node = self.manager.environment.nodes[next_node_index]
+            self.x = next_node.x
+            self.y = next_node.y
 
     def find_next_node(self):
         desirabilities = []
@@ -94,7 +84,7 @@ class Ant(Simulation):
         return next_node_index
 
     def desirability(self, index, node):
-        distance = self.ant.distance_to(node)
+        distance = self.distance_to(node)
         pheromone = self.manager.get_pheromone_value(self.visited_nodes[-1], index)
         desirability = math.pow(1 / distance, Settings.DESIRABILITY_POWER) * math.pow(pheromone,
                                                                                       Settings.PHEROMONE_POWER)
@@ -104,7 +94,7 @@ class Ant(Simulation):
         for index, node in enumerate(self.manager.environment.nodes):
             if index in available_nodes:
                 position = available_nodes.index(index)
-                self.ant.draw_line_to_node(
+                self.draw_line_to_node(
                     self.manager.canvas.screen,
                     node,
                     line_thickness=int(

@@ -21,11 +21,8 @@ class Environment:
 
         self.shortest_path = []
         self.shortest_path_size = None
+        self.total_nodes = len(self.nodes)
 
     def update_shortest_path(self, new_path, new_path_size):
         self.shortest_path = new_path
         self.shortest_path_size = new_path_size
-
-    def __str__(self):
-        nodes_str = "\n".join([f"Node {i}: ({node.x}, {node.y})" for i, node in enumerate(self.nodes)])
-        return f"Nodes:\n{nodes_str}\nShortest path: {self.shortest_path}\nShortest path size: {self.shortest_path_size}"

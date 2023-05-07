@@ -28,7 +28,7 @@ def main():
         if not pause:
             counter += 1
             if counter % 2 == 0:
-            # if counter % 2 == 0 and Settings.DELAY == 0:
+                # if counter % 2 == 0 and Settings.DELAY == 0:
                 orchestrator.add_iteration()
 
             # pygame.time.delay(Settings.DELAY)

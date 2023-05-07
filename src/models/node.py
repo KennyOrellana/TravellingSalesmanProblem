@@ -15,5 +15,6 @@ class Node:
     def distance_to(self, other_node):
         return math.sqrt((other_node.x - self.x) ** 2 + (other_node.y - self.y) ** 2)
 
-    def draw_line_to_node(self, screen, node, line_color=Settings.LINE_COLOR, line_thickness=Settings.LINE_THICKNESS):
+    def draw_line_to_node(self, screen, node, line_color=Settings.NODE_OPTIONS_COLOR,
+                          line_thickness=Settings.LINE_THICKNESS):
         pygame.draw.line(screen, line_color, (self.x, self.y), (node.x, node.y), line_thickness)

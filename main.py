@@ -1,20 +1,14 @@
-import sys
-
 import pygame
 
 from src.core.orchestrator import Orchestrator
 from src.environment.settings import Settings
 from src.models.environment import Environment
-from src.models.node import Node
-from src.models.simulation import Simulation
 from src.simulations.ant_behaviour import AntBehaviour
-from src.ui.canvas import Canvas
-from src.ui.manager import Manager
 
 
 def create_simulations():
     return [
-        AntBehaviour(),
+        AntBehaviour(),  # add more ants
     ]
 
 
@@ -37,7 +31,7 @@ def main():
 
     while run:
         # Limit the game loop to the desired FPS
-        # clock.tick(Settings.FPS)
+        clock.tick(Settings.FPS)
 
         orchestrator.tick()
         pygame.display.flip()

@@ -13,8 +13,4 @@ class Ant(Node):
         return cls(node.x, node.y)
 
     def draw(self, screen):
-        ant_color = Settings.ANT_COLOR
-        ant_color.a = Settings.ANT_ALPHA
-        pygame.draw.circle(screen, ant_color, (self.x, self.y), Settings.NODE_RADIUS)
-
-
+        pygame.draw.circle(screen, Settings.CURRENT_NODE_COLOR, (self.x, self.y), Settings.NODE_RADIUS)

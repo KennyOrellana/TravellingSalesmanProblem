@@ -1,6 +1,7 @@
 from src.ui.canvas import Canvas
 
 
+# Create another orchestrator to execute simulation as fast as possible on multiple threads
 class Orchestrator:
     def __init__(self, environment, simulations):
         self.playing = False

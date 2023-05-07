@@ -7,6 +7,7 @@ from src.models.simulation import Simulation
 from src.ui.manager import Manager
 
 
+# Probably must be renamed
 class AntBehaviour(Simulation):
     STEPS = 3
 
@@ -40,9 +41,13 @@ class AntBehaviour(Simulation):
         # else if self.iteration == 3:
         # animate transition
 
-        # self.manager.tick()
+    # when ends change the ant color
+    # Use diferent color for each ant
+
+    # self.manager.tick()
 
     def draw_current_path(self):
+
         if len(self.visited_nodes) > 1:
             for i in range(len(self.visited_nodes) - 1):
                 self.manager.environment.nodes[self.visited_nodes[i]].draw_line_to_node(

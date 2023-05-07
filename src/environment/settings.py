@@ -2,16 +2,19 @@ import pygame
 
 
 class Settings:
-    LINE_THICKNESS = 5
     FPS = 30
-    DELAY = 5_000 // FPS
+    DELAY = 10_000 // FPS
     PADDING = 50
+
     NODE_RADIUS = 10
-    NODE_COLOR = (0xF45A47)  # HEX color for white
-    BACKGROUND_COLOR = pygame.Color('#F7F5F7')  # HEX color for black
-    LINE_COLOR = pygame.Color('#6C559A')
-    NEXT_NODE_COLOR = pygame.Color('#927B90')
-    NEXT_NODE_THICKNESS = 7
-    ANT_COLOR = pygame.Color('#6C559A')
-    ANT_ALPHA = int(255 * 0.66)
+    LINE_THICKNESS = NODE_RADIUS // 2
+
+    BACKGROUND_COLOR = pygame.Color('#F7F9FC')
+
+    NODE_COLOR = pygame.Color('#0262E4')
+    CURRENT_NODE_COLOR = pygame.Color('#0C203D')
+
+    NODE_OPTIONS_COLOR = pygame.Color('#858F9E')
+    SELECTED_NODE_COLOR = pygame.Color('#0C203D')
+
     DESIRABILITY_POWER = 2.3

@@ -1,13 +1,13 @@
+import copy
 import math
 import random
 
 from src.environment.settings import Settings
-from src.models.ant import Ant
 from src.models.simulation import Simulation
 
 
 # Probably must be renamed
-class AntBehaviour(Simulation):
+class Ant(Simulation):
     def __init__(self, canvas, environment, manager):
         self.manager = manager
         self.manager.draw_nodes()
@@ -19,7 +19,7 @@ class AntBehaviour(Simulation):
 
     def start(self):
         initial_index = random.randint(0, len(self.manager.environment.nodes) - 1)
-        self.ant = Ant.from_node(self.manager.environment.nodes[initial_index])
+        self.ant = copy.deepcopy(self.manager.environment.nodes[initial_index])
         # self.manager.add_ant(self.ant)
         self.visited_nodes.append(initial_index)
 
@@ -70,7 +70,7 @@ class AntBehaviour(Simulation):
             self.manager.followed_path(self.visited_nodes[-1], next_node_index)
             self.visited_nodes.append(next_node_index)
             self.manager.draw_next_node(self.ant, next_node_index)
-            self.ant = Ant.from_node(self.manager.environment.nodes[next_node_index])
+            self.ant = copy.deepcopy(self.manager.environment.nodes[next_node_index])
             # self.manager.ants[0] = self.ant
 
     def find_next_node(self):

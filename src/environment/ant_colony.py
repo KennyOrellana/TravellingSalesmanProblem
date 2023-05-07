@@ -1,4 +1,4 @@
-from src.algorithms.ant_behaviour import AntBehaviour
+from src.algorithms.ant_behaviour import Ant
 from src.environment.settings import Settings
 from src.ui.manager import Manager
 
@@ -39,7 +39,7 @@ class AntColony(Manager):
                     self.matrix[j][i] = 1
 
     def create_ants(self, n):
-        return [AntBehaviour(self.canvas, self.environment, self) for _ in range(n)]  # Create n instances of Ant
+        return [Ant(self.canvas, self.environment, self) for _ in range(n)]  # Create n instances of Ant
 
     def add_iteration(self):
-        self.ants.append(AntBehaviour(self.canvas, self.environment, self))
+        self.ants.append(Ant(self.canvas, self.environment, self))

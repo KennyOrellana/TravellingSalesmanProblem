@@ -16,7 +16,7 @@ class Manager:
 
     def draw_ants(self, ant):
         # for ant in self.ants:
-        ant.draw(self.canvas.screen)
+        ant.draw(self.canvas.screen, Settings.CURRENT_NODE_COLOR)
 
     def ant_finished(self, ant):
         if self.best_ant is None or ant.total_distance < self.best_ant.total_distance:

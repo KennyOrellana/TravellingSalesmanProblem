@@ -3,76 +3,13 @@ import pygame
 from src.core.orchestrator import Orchestrator
 from src.environment.settings import Settings
 from src.models.environment import Environment
-from src.algorithms.ant_behaviour import AntBehaviour
-
-
-def create_simulation():
-    return [AntBehaviour()]
-
-
-def create_simulations():
-    return [
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-        AntBehaviour(),  # add more ants
-    ]
-
-
-def create_environment():
-    return Environment()
 
 
 def main():
     pygame.init()
 
-    orchestrator = Orchestrator(create_environment(), create_simulation())
+    orchestrator = Orchestrator(Environment())
+    # orchestrator = Orchestrator(Environment(), AntColony())
 
     pygame.display.update()
 
@@ -90,10 +27,11 @@ def main():
         orchestrator.tick()
         if not pause:
             counter += 1
-            if counter % 2 == 0 and Settings.DELAY == 0:
-                orchestrator.add_ant()
+            if counter % 2 == 0:
+            # if counter % 2 == 0 and Settings.DELAY == 0:
+                orchestrator.add_iteration()
 
-            pygame.time.delay(Settings.DELAY)
+            # pygame.time.delay(Settings.DELAY)
 
         pygame.display.flip()
 
@@ -104,9 +42,7 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     run = False
                 if event.key == pygame.K_SPACE:
-                    # orchestrator.add_ant()
                     pause = not pause
-                    # started = True
 
 
 if __name__ == "__main__":

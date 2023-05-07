@@ -4,21 +4,20 @@ import random
 from src.environment.settings import Settings
 from src.models.ant import Ant
 from src.models.simulation import Simulation
-from src.ui.manager import Manager
 
 
 # Probably must be renamed
 class AntBehaviour(Simulation):
-    def __init__(self):
-        self.manager = None
+    def __init__(self, canvas, environment, manager):
+        self.manager = manager
+        self.manager.draw_nodes()
         self.iteration = -1
         self.ant = None
         self.visited_nodes = []
         self.total_distance = 0
+        self.start()
 
-    def start(self, canvas, environment, manager):
-        self.manager = manager
-        self.manager.draw_nodes()
+    def start(self):
         initial_index = random.randint(0, len(self.manager.environment.nodes) - 1)
         self.ant = Ant.from_node(self.manager.environment.nodes[initial_index])
         # self.manager.add_ant(self.ant)

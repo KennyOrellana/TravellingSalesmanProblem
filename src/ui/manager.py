@@ -25,20 +25,10 @@ class Manager:
 
         print("Best ant: ", self.best_ant.total_distance, "Ant finished: ", ant.total_distance)
 
-    # def add_ant(self, ant):
-    #     self.ants.append(ant)
-    #     self.draw_ants()
-
     def tick(self):
         if self.best_ant is not None:
             self.draw_nodes()
             self.best_ant.draw_current_path(Settings.TEXT_COLOR)
-
-    # def draw_option_nodes(self, available_nodes):
-    #     for ant in self.ants:
-    #         for index, node in enumerate(self.environment.nodes):
-    #             if index in available_nodes:
-    #                 ant.draw_line_to_node(self.canvas.screen, node)
 
     def draw_next_node(self, ant, next_node_index):
         ant.draw_line_to_node(self.canvas.screen, self.environment.nodes[next_node_index],
@@ -58,3 +48,6 @@ class Manager:
 
         self.canvas.screen.blit(total_ants_surface, (10, 10))
         self.canvas.screen.blit(shortest_distance_surface, (10, 50))
+
+    def add_iteration(self):
+        pass

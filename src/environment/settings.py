@@ -3,6 +3,7 @@ import pygame
 
 class Settings:
     NUM_NODES = 50
+    INITIAL_ANTS = 50
     FPS = 120
     # DELAY = 0  # 10_000 // FPS
     DELAY = 100_000 // FPS

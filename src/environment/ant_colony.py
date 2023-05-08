@@ -12,12 +12,12 @@ class AntColony(Manager):
         self.total_ants = len(self.ants)
 
     @staticmethod
-    def create_pheromone_matrix(n, initial_value=1.0):
+    def create_pheromone_matrix(n, initial_value=Settings.PHEROMONE_INITIAL):
         matrix = [[initial_value for _ in range(n)] for _ in range(n)]
         return matrix
 
     def followed_path(self, i, j):
-        self.matrix[i][j] += 1
+        self.matrix[i][j] += Settings.PHEROMONE_INTENSITY
 
     def get_pheromone_value(self, node1, node2):
         return self.matrix[node1][node2]
@@ -32,7 +32,7 @@ class AntColony(Manager):
 
         self.dissipate_pheromone()
 
-    def dissipate_pheromone(self, evaporation_rate=0.5):
+    def dissipate_pheromone(self, evaporation_rate=Settings.PHEROMONE_EVAPORATION):
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 self.matrix[i][j] *= (1 - evaporation_rate)

@@ -35,7 +35,7 @@ class Drawer:
 
         if self.environment.shortest_path_size:
             formatted_distance = format(self.environment.shortest_path_size, ',.2f')
-            shortest_distance_text = f"Shortest distance: {formatted_distance}"
+            shortest_distance_text = f"Shortest distance: {formatted_distance} kms"
         else:
             shortest_distance_text = "Shortest distance: N/A"
 

@@ -2,7 +2,7 @@ import pygame
 
 
 class Settings:
-    NUM_NODES = 50
+    NUM_NODES = 100
     INITIAL_ANTS = 50
     FPS = 120
     # DELAY = 0  # 10_000 // FPS
@@ -22,5 +22,8 @@ class Settings:
     NODE_OPTIONS_COLOR = pygame.Color('#858F9E')
     SELECTED_NODE_COLOR = pygame.Color('#0C203D')
 
-    DESIRABILITY_POWER = 2.3
+    DESIRABILITY_POWER = 4
     PHEROMONE_POWER = 2
+    PHEROMONE_INITIAL = 1
+    PHEROMONE_INTENSITY = 10
+    PHEROMONE_EVAPORATION = 0.3

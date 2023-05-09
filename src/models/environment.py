@@ -11,7 +11,7 @@ class Environment:
             (width, height) = Canvas.get_screen_size()
             self.nodes = [
                 Node(
-                    random.randint(Settings.PADDING, width - Settings.PADDING),
+                    random.randint(Settings.SIDEBAR_WIDTH + Settings.PADDING, width - Settings.PADDING),
                     random.randint(Settings.PADDING, height - Settings.PADDING),
                 )
                 for _ in range(num_nodes)

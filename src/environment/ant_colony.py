@@ -5,10 +5,14 @@ from src.ui.manager import Manager
 
 
 class AntColony(Manager):
-    def __init__(self, canvas, environment):
+    def __init__(self, canvas, environment, demo=False):
         super().__init__(canvas, environment)
+        self.demo = demo
         self.matrix = AntColony.create_pheromone_matrix(Settings.NUM_NODES)
-        self.ants = self.create_ants(Settings.INITIAL_ANTS)  # Create n instances of Ant
+        if demo:
+            self.ants = self.create_ants(1)
+        else:
+            self.ants = self.create_ants(Settings.INITIAL_ANTS)  # Create n instances of Ant
         self.total_ants = len(self.ants)
 
     @staticmethod
@@ -23,7 +27,6 @@ class AntColony(Manager):
         return self.matrix[node1][node2]
 
     def tick(self):
-        print("Ants: ", len(self.ants))
         for index, ant in reversed(list(enumerate(self.ants))):
             if ant.total_distance > 0:
                 self.ants.pop(index)
@@ -42,9 +45,11 @@ class AntColony(Manager):
                 if self.matrix[j][i] < 1:
                     self.matrix[j][i] = 1
 
-    def create_ants(self, n):
-        return [Ant(self) for _ in range(n)]  # Create n instances of Ant
-        # return [AntDemo(self) for _ in range(n)]  # Create n instances of Ant
+    def create_ants(self, n):  # Create n instances of Ant
+        if not self.demo:
+            return [Ant(self) for _ in range(n)]
+        else:
+            return [AntDemo(self) for _ in range(n)]
 
     def add_iteration(self):
         self.total_ants += 1

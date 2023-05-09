@@ -2,19 +2,23 @@ import pygame
 
 
 class Settings:
+    RESET = False
     NUM_NODES = 100
     INITIAL_ANTS = 50
     FPS = 120
     # DELAY = 0  # 10_000 // FPS
+    PAUSED = True
     DELAY = 10_000 // FPS
-    PADDING = 50
 
     NODE_RADIUS = 10
     LINE_THICKNESS = 2  # NODE_RADIUS // 2
     NODE_OPTIONS_THICKNESS = NUM_NODES // 2
 
+    SIDEBAR_WIDTH = 200
     BACKGROUND_COLOR = pygame.Color('#F7F9FC')
+    SIDEBAR_COLOR = pygame.Color('#eff1f5')
     TEXT_COLOR = pygame.Color('#0AB75B')
+    TEXT_SIZE = 22
 
     NODE_COLOR = pygame.Color('#0262E4')
     CURRENT_NODE_COLOR = pygame.Color('#0C203D')
@@ -27,3 +31,10 @@ class Settings:
     PHEROMONE_INITIAL = 1
     PHEROMONE_INTENSITY = 10
     PHEROMONE_EVAPORATION = 0.3
+
+    # UI
+    BUTTON_PADDING = 10
+    BUTTON_WIDTH = 100
+    BUTTON_HEIGHT = 20
+    ROW_PADDING = 50
+    PADDING = 50

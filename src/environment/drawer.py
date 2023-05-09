@@ -1,12 +1,17 @@
 import pygame
 
 from src.environment.settings import Settings
+from src.ui.button import Button
+from src.ui.input import InputNumber
 
 
 class Drawer:
     def __init__(self, canvas, environment):
         self.canvas = canvas
         self.environment = environment
+
+    def clear_canvas(self):
+        self.canvas.clear()
 
     def draw_nodes(self):
         for node in self.environment.nodes:

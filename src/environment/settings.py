@@ -15,7 +15,7 @@ class Settings:
 
     RESET = False
     NUM_NODES = 100
-    INITIAL_ANTS = 50
+    INITIAL_ANTS = 0
     FPS = 120
     # DELAY = 0  # 10_000 // FPS
     PAUSED = True
@@ -52,7 +52,8 @@ class Settings:
 
     # UI
     UI_PADDING = 10
-    BUTTON_WIDTH = 100
+    LABEL_WIDTH = 170
+    BUTTON_WIDTH = 85
     BUTTON_HEIGHT = 20
     ROW_PADDING = 20
     PADDING = 50

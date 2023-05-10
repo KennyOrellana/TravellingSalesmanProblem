@@ -6,16 +6,9 @@ from src.ui.gui_interface import GUIInterface
 
 class GUI(GUIInterface):
 
-    def __init__(self, environment=Environment()):
-        super().__init__(environment)
-        self.start = False
-
     def create_ui(self):
         self.add_label("AOC", font_size=60, color=Settings.TITLE_COLOR, align='center')
-        self.add_label("Ant Colony Optimization" , color=Settings.TITLE_COLOR)
+        self.add_label("Ant Colony Optimization", color=Settings.TITLE_COLOR)
         self.add_label("Ants")
-        self.add_button("Start", lambda: setattr(Settings, 'PAUSED', not Settings.PAUSED))
+        self.add_toggle_button("Start", "Pause", lambda: setattr(Settings, 'PAUSED', not Settings.PAUSED))
         self.add_button("Reset", lambda: setattr(Settings, 'RESET', True))
-
-    def reset(self):
-        pass

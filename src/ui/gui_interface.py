@@ -4,14 +4,16 @@ import pygame
 
 from src.environment.drawer import Drawer
 from src.environment.settings import Settings
+from src.models.environment import Environment
 from src.ui.button import Button
 from src.ui.canvas import Canvas
 from src.ui.input import InputNumber
 from src.ui.label import Label
+from src.ui.toggle_button import ToggleButton
 
 
 class GUIInterface(ABC):
-    def __init__(self, environment):
+    def __init__(self, environment=Environment()):
         self.environment = environment
         self.canvas = Canvas()
         self.drawer = Drawer(self.canvas, self.environment)
@@ -20,6 +22,19 @@ class GUIInterface(ABC):
         self.buttons = []
         self.inputs = []
         self.labels = []
+        self.start = False
+        self.create_ui()
+
+    def reset(self):
+        self.environment = Environment()
+        self.drawer = Drawer(self.canvas, self.environment)
+        self.current_x = Settings.UI_PADDING
+        self.current_y = Settings.PADDING
+        self.buttons = []
+        self.inputs = []
+        self.labels = []
+        self.start = False
+        Settings.PAUSED = True  # TODO reset from other place
         self.create_ui()
 
     @abstractmethod
@@ -39,13 +54,19 @@ class GUIInterface(ABC):
         button = Button(title, position, callback, width=Settings.BUTTON_WIDTH, button_color=Settings.BUTTON_COLOR)
         self.buttons.append(button)
 
+    def add_toggle_button(self, title, toggled_title, callback):
+        position = self._get_next_position(Settings.BUTTON_WIDTH, Settings.BUTTON_HEIGHT)
+        button = ToggleButton(title, toggled_title, position, callback, width=Settings.BUTTON_WIDTH,
+                              button_color=Settings.BUTTON_COLOR)
+        self.buttons.append(button)
+
     def add_input(self, x, y, width, height, initial_value=0, variable=None):
         position = self._get_next_position(width, height)
         input_number = InputNumber(position[0], position[1], width, height, initial_value, variable=variable)
         self.inputs.append(input_number)
 
     def add_label(self, text, font_size=Settings.TEXT_SIZE, color=Settings.TEXT_COLOR, align='left'):
-        position = self._get_next_position(Settings.BUTTON_WIDTH, font_size)
+        position = self._get_next_position(Settings.LABEL_WIDTH, font_size)
         label = Label(position[0], position[1], text, font_size, color, max_width=Settings.SIDEBAR_WIDTH, align=align)
         self.labels.append(label)
 
@@ -79,7 +100,7 @@ class GUIInterface(ABC):
     def _handle_click(self, click_position):
         for button in self.buttons:
             if button.rect.collidepoint(click_position):
-                button.callback()
+                button.on_click()
                 break
 
         for input_element in self.inputs:

@@ -18,7 +18,7 @@ class Orchestrator:
         self.gui.draw_summary(self.manager.total_ants)
 
         if self.environment.shortest_path_size is not None:
-            self.drawer.draw_path(self.environment.shortest_path, Settings.TEXT_COLOR)
+            self.drawer.draw_path(self.environment.shortest_path, Settings.LINE_COLOR)
 
     def add_iteration(self):
         self.manager.add_iteration()

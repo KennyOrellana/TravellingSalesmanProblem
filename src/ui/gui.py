@@ -11,7 +11,8 @@ class GUI(GUIInterface):
         self.start = False
 
     def create_ui(self):
-        self.add_label("Ant Colony Optimization")
+        self.add_label("AOC", font_size=60, color=Settings.TITLE_COLOR, align='center')
+        self.add_label("Ant Colony Optimization" , color=Settings.TITLE_COLOR)
         self.add_label("Ants")
         self.add_button("Start", lambda: setattr(Settings, 'PAUSED', not Settings.PAUSED))
         self.add_button("Reset", lambda: setattr(Settings, 'RESET', True))

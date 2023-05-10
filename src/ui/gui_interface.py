@@ -15,8 +15,8 @@ class GUIInterface(ABC):
         self.environment = environment
         self.canvas = Canvas()
         self.drawer = Drawer(self.canvas, self.environment)
-        self.current_x = Settings.BUTTON_PADDING
-        self.current_y = Settings.BUTTON_PADDING
+        self.current_x = Settings.UI_PADDING
+        self.current_y = Settings.PADDING
         self.buttons = []
         self.inputs = []
         self.labels = []
@@ -36,7 +36,7 @@ class GUIInterface(ABC):
 
     def add_button(self, title, callback):
         position = self._get_next_position(Settings.BUTTON_WIDTH, Settings.BUTTON_HEIGHT)
-        button = Button(title, position, callback, width=Settings.BUTTON_WIDTH)
+        button = Button(title, position, callback, width=Settings.BUTTON_WIDTH, button_color=Settings.BUTTON_COLOR)
         self.buttons.append(button)
 
     def add_input(self, x, y, width, height, initial_value=0, variable=None):
@@ -44,9 +44,9 @@ class GUIInterface(ABC):
         input_number = InputNumber(position[0], position[1], width, height, initial_value, variable=variable)
         self.inputs.append(input_number)
 
-    def add_label(self, text, font_size=Settings.TEXT_SIZE, color=Settings.TEXT_COLOR):
+    def add_label(self, text, font_size=Settings.TEXT_SIZE, color=Settings.TEXT_COLOR, align='left'):
         position = self._get_next_position(Settings.BUTTON_WIDTH, font_size)
-        label = Label(position[0], position[1], text, font_size, color)
+        label = Label(position[0], position[1], text, font_size, color, max_width=Settings.SIDEBAR_WIDTH, align=align)
         self.labels.append(label)
 
     def draw_sidebar(self):
@@ -55,7 +55,7 @@ class GUIInterface(ABC):
 
     def draw_summary(self, total_ants):
         if len(self.labels) > 1:
-            self.labels[1].text = f"Total ants: {total_ants:,}"
+            self.labels[-1].text = f"Total ants: {total_ants:,}"
         # self.drawer.draw_summary(total_ants)
 
     def draw_buttons(self):
@@ -89,9 +89,9 @@ class GUIInterface(ABC):
                 input_element.focus = False
 
     def _get_next_position(self, width, height):
-        if self.current_x + width + Settings.BUTTON_PADDING > Settings.SIDEBAR_WIDTH:
-            self.current_x = Settings.BUTTON_PADDING
+        if self.current_x + width + Settings.UI_PADDING > Settings.SIDEBAR_WIDTH:
+            self.current_x = Settings.UI_PADDING
             self.current_y += height + Settings.ROW_PADDING
         position = (self.current_x, self.current_y)
-        self.current_x += width + Settings.BUTTON_PADDING
+        self.current_x += width + Settings.UI_PADDING
         return position

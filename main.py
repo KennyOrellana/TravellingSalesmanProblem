@@ -6,13 +6,9 @@ from src.environment.settings import Settings
 from src.ui.gui import GUI
 
 
-def main(demo=False):
+def main():
     gui_manager = GUI()
-    if demo:
-        orchestrator = OrchestratorDemo(gui_manager)
-    else:
-        orchestrator = Orchestrator(gui_manager)
-    # orchestrator = Orchestrator(Environment(), AntColony())
+    orchestrator = OrchestratorDemo(gui_manager)
 
     pygame.display.update()
 
@@ -28,6 +24,10 @@ def main(demo=False):
             orchestrator = Orchestrator(gui_manager)
 
         # Limit the game loop to the desired FPS
+        # if Settings.DEMO:
+        #     clock.tick(10)
+        # else:
+        #     clock.tick(120)
         clock.tick(Settings.FPS)
 
         orchestrator.tick()
@@ -35,7 +35,9 @@ def main(demo=False):
             orchestrator.add_iteration()
 
         pygame.display.flip()
-        # pygame.time.delay(Settings.DELAY)
+
+        if Settings.DEMO:
+            pygame.time.delay(Settings.DELAY)
 
         events = pygame.event.get()
         gui_manager.handle_events(events)
@@ -53,4 +55,3 @@ def main(demo=False):
 
 if __name__ == "__main__":
     main()
-    # main(demo=True)

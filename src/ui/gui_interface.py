@@ -49,14 +49,14 @@ class GUIInterface(ABC):
         self.draw_inputs()
         self.draw_labels()
 
-    def add_button(self, title, callback):
+    def add_button(self, title, callback, width=Settings.BUTTON_WIDTH):
         position = self._get_next_position(Settings.BUTTON_WIDTH, Settings.BUTTON_HEIGHT)
-        button = Button(title, position, callback, width=Settings.BUTTON_WIDTH, button_color=Settings.BUTTON_COLOR)
+        button = Button(title, position, callback, width=width, button_color=Settings.BUTTON_COLOR)
         self.buttons.append(button)
 
-    def add_toggle_button(self, title, toggled_title, callback):
+    def add_toggle_button(self, title, toggled_title, callback, width=Settings.BUTTON_WIDTH):
         position = self._get_next_position(Settings.BUTTON_WIDTH, Settings.BUTTON_HEIGHT)
-        button = ToggleButton(title, toggled_title, position, callback, width=Settings.BUTTON_WIDTH,
+        button = ToggleButton(title, toggled_title, position, callback, width=width,
                               button_color=Settings.BUTTON_COLOR)
         self.buttons.append(button)
 

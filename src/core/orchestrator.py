@@ -4,11 +4,11 @@ from src.environment.settings import Settings
 
 
 class Orchestrator:
-    def __init__(self, gui, demo=False):
+    def __init__(self, gui):
         self.gui = gui
         self.canvas = gui.canvas
         self.environment = gui.environment
-        self.manager = AntColony(self.canvas, self.environment, demo)
+        self.manager = AntColony(self.canvas, self.environment)
         self.drawer = Drawer(self.canvas, self.environment)
 
     def tick(self):

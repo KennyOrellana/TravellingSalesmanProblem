@@ -18,8 +18,9 @@ class Settings:
     INITIAL_ANTS = 0
     FPS = 120
     # DELAY = 0  # 10_000 // FPS
+    DEMO = False
     PAUSED = True
-    DELAY = 10_000 // FPS
+    DELAY = 1_000
 
     NODE_RADIUS = 10
     LINE_THICKNESS = 4  # NODE_RADIUS // 2
@@ -54,6 +55,7 @@ class Settings:
     UI_PADDING = 10
     LABEL_WIDTH = 170
     BUTTON_WIDTH = 85
+    BUTTON_WIDTH_FULL = 180
     BUTTON_HEIGHT = 20
     ROW_PADDING = 20
     PADDING = 50

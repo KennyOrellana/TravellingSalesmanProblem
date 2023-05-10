@@ -75,9 +75,16 @@ class GUIInterface(ABC):
         pygame.draw.rect(self.drawer.canvas.screen, Settings.SIDEBAR_COLOR, sidebar_rect)
 
     def draw_summary(self, total_ants):
-        if len(self.labels) > 1:
-            self.labels[-1].text = f"Total ants: {total_ants:,}"
-        # self.drawer.draw_summary(total_ants)
+        for label in self.labels:
+            if label.text.startswith('Total ants'):
+                label.text = f"Total ants {total_ants:,}"
+            elif label.text.startswith('Distance'):
+                if self.environment.shortest_path_size:
+                    formatted_distance = format(self.environment.shortest_path_size, ',.2f')
+                    shortest_distance_text = f"Distance {formatted_distance} kms"
+                else:
+                    shortest_distance_text = "Distance N/A"
+                label.text = shortest_distance_text
 
     def draw_buttons(self):
         for button in self.buttons:

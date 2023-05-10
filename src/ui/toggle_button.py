@@ -13,7 +13,6 @@ class ToggleButton(Button):
     def draw(self, screen):
         # Choose the appropriate title based on the is_toggled state
         display_title = self.toggled_title if self.is_toggled else self.title
-        print(self.is_toggled, self.title, self.toggled_title, display_title)
 
         # Draw left and right semi-circles
         pygame.draw.circle(screen, self.button_color,

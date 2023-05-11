@@ -23,11 +23,6 @@ def main():
             Settings.RESET = False
             orchestrator = Orchestrator(gui_manager)
 
-        # Limit the game loop to the desired FPS
-        # if Settings.DEMO:
-        #     clock.tick(10)
-        # else:
-        #     clock.tick(120)
         clock.tick(Settings.FPS)
 
         orchestrator.tick()
@@ -37,7 +32,9 @@ def main():
         pygame.display.flip()
 
         if Settings.DEMO:
-            pygame.time.delay(Settings.DELAY)
+            Settings.DELAY *= Settings.ANIMATION_SPEED
+            if int(Settings.DELAY) > 0:
+                pygame.time.delay(int(Settings.DELAY))
 
         events = pygame.event.get()
         gui_manager.handle_events(events)
@@ -50,7 +47,6 @@ def main():
                     run = False
                 if event.key == pygame.K_SPACE:
                     Settings.PAUSED = not Settings.PAUSED
-                    # orchestrator.add_iteration()
 
 
 if __name__ == "__main__":

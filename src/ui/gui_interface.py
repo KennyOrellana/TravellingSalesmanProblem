@@ -35,6 +35,7 @@ class GUIInterface(ABC):
         self.labels = []
         self.start = False
         Settings.PAUSED = True  # TODO reset from other place
+        Settings.DELAY = Settings.DELAY_DEFAULT
         self.create_ui()
 
     @abstractmethod

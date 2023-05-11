@@ -10,7 +10,7 @@ class GUI(GUIInterface):
         Settings.DELAY = Settings.DELAY_DEFAULT
 
     def create_ui(self):
-        self.add_label("AOC", font_size=60, color=Settings.TITLE_COLOR, align='center')
+        self.add_label("ACO", font_size=60, color=Settings.TITLE_COLOR, align='center')
         self.add_label("Ant Colony Optimization", color=Settings.TITLE_COLOR)
         self.add_label("Total ants")
         self.add_label("Distance")

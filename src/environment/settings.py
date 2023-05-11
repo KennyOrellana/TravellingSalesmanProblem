@@ -38,7 +38,7 @@ class Settings:
     # NODE_COLOR = pygame.Color('#0262E4')
     NODE_COLOR = COLOR1
     LINE_COLOR = COLOR2
-    CURRENT_NODE_COLOR = pygame.Color('#0C203D')
+    # CURRENT_NODE_COLOR = pygame.Color('#0C203D')
 
     NODE_OPTIONS_COLOR = pygame.Color('#858F9E')
     SELECTED_NODE_COLOR = pygame.Color('#0C203D')
